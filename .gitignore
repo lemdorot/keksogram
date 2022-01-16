@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+*.ai
+*.log
+*.pdf
+*.psd
+build/
+build-remote/
+node_modules/
+public/bundle.js
+public/bundle.js.map
+markup/
+npm-debug.log*
+Thumbs.db
