@@ -54,7 +54,7 @@ var getDescription = () => {
 
 var pictures = [];
 
-var fillPictures = function (pictures) {
+var fillPictures = (pictures) => {
   for (var i = 0; i < 25; i++) {
     pictures.push({
       url: 'photos/' + (i + 1) + '.jpg',
@@ -67,7 +67,7 @@ var fillPictures = function (pictures) {
 
 fillPictures(pictures);
 
-var renderPicture = function (picture) {
+var renderPicture = (picture) => {
   var pictureElement = pictureTemplate.cloneNode(true);
 
   pictureElement.querySelector('.picture__img').src = picture.url;
@@ -81,3 +81,29 @@ export var pictureFragment = document.createDocumentFragment();
 for (var i = 0; i < pictures.length; i++) {
   pictureFragment.appendChild(renderPicture(pictures[i]))
 }
+
+var bigPicture = document.querySelector('.big-picture');
+var socialComments = bigPicture.querySelector('.social__comments');
+
+bigPicture.classList.remove("hidden");
+
+var createComments = (picture) => {
+  var comments = '';
+  for (var i = 0; i < 5; i++) {
+    comments = comments + '<li class="social__comment social__comment--text"><img class="social__picture" src="img/avatar-' + randomInt(1, 6) + '.svg" alt="Аватар комментатора фотографии" width="35" height="35"> <p class="social__text">' + picture.comments[i] + '</p> </li>';
+  }
+  return comments;
+}
+
+var fillBigPicture = (picture) => {
+  bigPicture.querySelector('.big-picture__img>img').src = picture.url;
+  bigPicture.querySelector('.likes-count').textContent = picture.likes;
+  bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
+  bigPicture.querySelector('.social__caption').textContent = picture.description;
+  while( socialComments.firstChild ){
+    socialComments.removeChild( socialComments.firstChild );
+  }
+  socialComments.insertAdjacentHTML('afterbegin', createComments(picture));
+}
+
+fillBigPicture(pictures[0]);
