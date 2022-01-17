@@ -107,3 +107,6 @@ var fillBigPicture = (picture) => {
 }
 
 fillBigPicture(pictures[0]);
+
+bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
+bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
