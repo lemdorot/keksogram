@@ -85,8 +85,6 @@ for (var i = 0; i < pictures.length; i++) {
 var bigPicture = document.querySelector('.big-picture');
 var socialComments = bigPicture.querySelector('.social__comments');
 
-bigPicture.classList.remove("hidden");
-
 var createComments = (picture) => {
   var comments = '';
   for (var i = 0; i < 5; i++) {
@@ -110,3 +108,9 @@ fillBigPicture(pictures[0]);
 
 bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
 bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
+
+var uploadFile = document.querySelector('#upload-file');
+
+uploadFile.addEventListener('change', function() {
+  document.querySelector('.img-upload__overlay').classList.remove('hidden');
+});
