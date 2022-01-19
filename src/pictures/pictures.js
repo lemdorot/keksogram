@@ -125,13 +125,58 @@ uploadCancel.addEventListener('click', () => {
 
 var effectRadioList = document.querySelectorAll("[name='effect']");
 
+var resetEffect = function () {
+  imgUploadPreview.style.removeProperty('filter');
+  scaleValue.value = parseInt(scalePin.offsetLeft / scaleSlider.offsetWidth * 100);
+  scaleLevel.style.width = scaleValue.value + '%';
+}
+
 for (var i = 0; i < effectRadioList.length; i++) {
   effectRadioList[i].addEventListener('click', function (evt) {
     if (evt.target.value === 'none') {
+      resetEffect();
+      imgUploadPreview.className = '';
       scale.classList.add('hidden');
     }
     else {
+      resetEffect();
       scale.classList.remove('hidden');
+      imgUploadPreview.className = 'effects__preview--' + evt.target.value;
     }
   });
 }
+
+var scalePin = document.querySelector('.scale__pin');
+var scaleValue = document.querySelector('.scale__value');
+var scaleLevel = document.querySelector('.scale__level');
+var scaleSlider = document.querySelector('.scale__line');
+var effectChrome = document.querySelector('#effect-chrome');
+var effectSepia = document.querySelector('#effect-sepia');
+var effectMarvin = document.querySelector('#effect-marvin');
+var effectPhobos = document.querySelector('#effect-phobos');
+var effectHeat = document.querySelector('#effect-heat');
+var imgUploadPreview = document.querySelector('.img-upload__preview img');
+
+var updateEffect = function () {
+  if (effectChrome.checked) {
+    imgUploadPreview.style.filter = 'grayscale(' + scaleValue.value / 100 + ')';
+  }
+  if (effectSepia.checked) {
+    imgUploadPreview.style.filter = 'sepia(' + scaleValue.value / 100 + ')';
+  }
+  if (effectMarvin.checked) {
+    imgUploadPreview.style.filter = 'invert(' + scaleValue.value + '%)';
+  }
+  if (effectPhobos.checked) {
+    imgUploadPreview.style.filter = 'blur(' + scaleValue.value / 100 * 3 + 'px)';
+  }
+  if (effectHeat.checked) {
+    imgUploadPreview.style.filter = 'brightness(' + scaleValue.value / 100 * 3 + ')';
+  }
+}
+
+scalePin.addEventListener('mouseup', () => {
+  scaleValue.value = parseInt(scalePin.offsetLeft / scaleSlider.offsetWidth * 100);
+  scaleLevel.style.width = scaleValue.value + '%';
+  updateEffect();
+});
