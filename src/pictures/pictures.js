@@ -104,8 +104,6 @@ var fillBigPicture = (picture) => {
   socialComments.insertAdjacentHTML('afterbegin', createComments(picture));
 }
 
-fillBigPicture(pictures[0]);
-
 bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
 bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
 
@@ -156,6 +154,7 @@ var effectMarvin = document.querySelector('#effect-marvin');
 var effectPhobos = document.querySelector('#effect-phobos');
 var effectHeat = document.querySelector('#effect-heat');
 var imgUploadPreview = document.querySelector('.img-upload__preview img');
+var bigPictureCancel = bigPicture.querySelector('.cancel');
 
 var updateEffect = function () {
   if (effectChrome.checked) {
@@ -179,4 +178,24 @@ scalePin.addEventListener('mouseup', () => {
   scaleValue.value = parseInt(scalePin.offsetLeft / scaleSlider.offsetWidth * 100);
   scaleLevel.style.width = scaleValue.value + '%';
   updateEffect();
+});
+
+var addClickToPictures = (button, index) => {
+  button.addEventListener('click', function (evt) {
+    bigPicture.classList.remove("hidden");
+    fillBigPicture(pictures[index]);
+  });
+}
+
+export var addPictureLinkHandlers = () => {
+  var pictureList = document.querySelectorAll('.picture__link');
+
+  for (var i = 0; i < pictureList.length; i++) {
+    var button = pictureList[i];
+    addClickToPictures(button, i);
+  }
+}
+
+bigPictureCancel.addEventListener('click', () => {
+  bigPicture.classList.add("hidden");
 });
