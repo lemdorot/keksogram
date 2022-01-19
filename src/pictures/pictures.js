@@ -112,6 +112,7 @@ bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hi
 var uploadFile = document.querySelector('#upload-file');
 var imgUpload = document.querySelector('.img-upload__overlay');
 var uploadCancel = imgUpload.querySelector('#upload-cancel');
+var scale = imgUpload.querySelector('.img-upload__scale');
 
 uploadFile.addEventListener('change', () => {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
@@ -121,3 +122,16 @@ uploadCancel.addEventListener('click', () => {
   document.querySelector('.img-upload__overlay').classList.add('hidden');
   uploadFile.value = '';
 });
+
+var effectRadioList = document.querySelectorAll("[name='effect']");
+
+for (var i = 0; i < effectRadioList.length; i++) {
+  effectRadioList[i].addEventListener('click', function (evt) {
+    if (evt.target.value === 'none') {
+      scale.classList.add('hidden');
+    }
+    else {
+      scale.classList.remove('hidden');
+    }
+  });
+}
