@@ -125,6 +125,7 @@ var effectRadioList = document.querySelectorAll("[name='effect']");
 
 var resetEffect = function () {
   imgUploadPreview.style.removeProperty('filter');
+  scalePin.style.left = '100%';
   scaleValue.value = parseInt(scalePin.offsetLeft / scaleSlider.offsetWidth * 100);
   scaleLevel.style.width = scaleValue.value + '%';
 }
@@ -137,8 +138,8 @@ for (var i = 0; i < effectRadioList.length; i++) {
       scale.classList.add('hidden');
     }
     else {
-      resetEffect();
       scale.classList.remove('hidden');
+      resetEffect();
       imgUploadPreview.className = 'effects__preview--' + evt.target.value;
     }
   });
@@ -174,11 +175,40 @@ var updateEffect = function () {
   }
 }
 
-scalePin.addEventListener('mouseup', () => {
-  scaleValue.value = parseInt(scalePin.offsetLeft / scaleSlider.offsetWidth * 100);
-  scaleLevel.style.width = scaleValue.value + '%';
-  updateEffect();
+scalePin.addEventListener('mousedown', function (event) {
+  event.preventDefault();
+
+  var shiftX = event.clientX - scalePin.getBoundingClientRect().left;
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+
+  function onMouseMove(event) {
+    var newLeft = event.clientX - shiftX - scaleSlider.getBoundingClientRect().left + scalePin.offsetWidth / 2;
+
+    if (newLeft < 0) {
+      newLeft = 0;
+    }
+    var rightEdge = scaleSlider.offsetWidth;
+    if (newLeft > rightEdge) {
+      newLeft = rightEdge;
+    }
+
+    scalePin.style.left = newLeft + 'px';
+    scaleValue.value = parseInt(scalePin.offsetLeft / scaleSlider.offsetWidth * 100);
+    scaleLevel.style.width = scaleValue.value + '%';
+    updateEffect();
+  }
+
+  function onMouseUp() {
+    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMouseMove);
+  }
 });
+
+scalePin.ondragstart = function() {
+  return false;
+};
 
 var addClickToPictures = (button, index) => {
   button.addEventListener('click', function (evt) {
@@ -236,3 +266,5 @@ hashtagsInput.addEventListener('blur', (evt) => {
     }
   }
 });
+
+
