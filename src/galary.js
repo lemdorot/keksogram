@@ -23,4 +23,3 @@ export var addPictureLinkHandlers = () => {
 bigPictureCancel.addEventListener('click', () => {
   bigPicture.classList.add("hidden");
 });
-
