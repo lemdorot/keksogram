@@ -1,12 +1,12 @@
 import {addPictureLinkHandlers} from "./galary";
-import {pictureFragment} from "./picture";
+import {renderPicture} from "./picture";
 import {sliderChange} from "./form";
 import {upload} from "./backend";
+import {load} from "./backend";
 
-var pictureList = document.querySelector('.pictures');
 var form = document.querySelector('.img-upload__form');
-
-pictureList.appendChild(pictureFragment);
+var pictureFragment = document.createDocumentFragment();
+var pictureList = document.querySelector('.pictures');
 
 addPictureLinkHandlers();
 
@@ -18,4 +18,14 @@ form.addEventListener('submit', function (evt) {
     document.querySelector('.img-upload__overlay').classList.add('hidden');
   });
   evt.preventDefault();
+});
+
+load (function (pictures) {
+  console.log(pictures);
+  for (var i = 0; i < pictures.length; i++) {
+    pictureFragment.appendChild(renderPicture(pictures[i]))
+  }
+
+  pictureList.appendChild(pictureFragment);
+  addPictureLinkHandlers(pictures);
 });

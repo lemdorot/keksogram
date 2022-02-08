@@ -1,8 +1,6 @@
-import {pictures} from "./data";
-
 var pictureTemplate = document.querySelector('#picture').content;
 
-var renderPicture = (picture) => {
+export var renderPicture = (picture) => {
   var pictureElement = pictureTemplate.cloneNode(true);
 
   pictureElement.querySelector('.picture__img').src = picture.url;
@@ -12,7 +10,3 @@ var renderPicture = (picture) => {
   return pictureElement;
 }
 
-export var pictureFragment = document.createDocumentFragment();
-for (var i = 0; i < pictures.length; i++) {
-  pictureFragment.appendChild(renderPicture(pictures[i]))
-}
