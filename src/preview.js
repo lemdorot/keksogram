@@ -1,12 +1,10 @@
-import {randomInt} from "./utils";
-
 var bigPicture = document.querySelector('.big-picture');
 var socialComments = bigPicture.querySelector('.social__comments');
 
 var createComments = (picture) => {
   var comments = '';
   for (var i = 0; i < 5; i++) {
-    comments = comments + '<li class="social__comment social__comment--text"><img class="social__picture" src="img/avatar-' + randomInt(1, 6) + '.svg" alt="Аватар комментатора фотографии" width="35" height="35"> <p class="social__text">' + picture.comments[i] + '</p> </li>';
+    comments = comments + '<li class="social__comment social__comment--text"><img class="social__picture" src="'+ picture.comments[i].avatar + '" alt="Аватар комментатора фотографии" width="35" height="35"> <p class="social__text">' + picture.comments[i].message + '</p> </li>';
   }
   return comments;
 }
