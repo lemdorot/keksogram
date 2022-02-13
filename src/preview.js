@@ -3,7 +3,7 @@ var socialComments = bigPicture.querySelector('.social__comments');
 
 var createComments = (picture) => {
   var comments = '';
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < picture.comments.length; i++) {
     comments = comments + '<li class="social__comment social__comment--text"><img class="social__picture" src="'+ picture.comments[i].avatar + '" alt="Аватар комментатора фотографии" width="35" height="35"> <p class="social__text">' + picture.comments[i].message + '</p> </li>';
   }
   return comments;
